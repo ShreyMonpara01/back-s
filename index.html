@@ -45,7 +45,7 @@
   let orders = JSON.parse(localStorage.getItem("orders")) || [];
   let html5QrCode;
 
-  // ✅ Beep Sounds
+  //  Beep Sounds
   function beepSuccess() {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     [600, 900, 1200].forEach((f, i) => {
@@ -64,7 +64,7 @@
     osc.start(); osc.stop(ctx.currentTime + 0.5);
   }
 
-  // 🏷 Detect Platform
+  //  Detect Platform
   function detectPlatform(code) {
     if (code.startsWith("FMPC") || code.startsWith("FMP")) return "Flipkart";
     if (code.startsWith("TBA")) return "Amazon";
@@ -72,7 +72,7 @@
     return document.getElementById("platform").value;
   }
 
-  // 💾 Save Order
+  //  Save Order
   function addOrder(code) {
     const platform = detectPlatform(code);
     let date = document.getElementById("dateFilter").value || new Date().toISOString().split("T")[0];
@@ -89,7 +89,7 @@
     displayOrders(orders);
     beepSuccess();
 
-    // ✅ Green border
+    // Green border
     const reader = document.getElementById("reader");
     reader.classList.replace("border-red-500", "border-green-500");
 
@@ -97,7 +97,7 @@
     stopScanner();
   }
 
-  // 🖥 Display Orders
+  //  Display Orders
   function displayOrders(list) {
     orderList.innerHTML = "";
     list.forEach((o, idx) => {
@@ -110,7 +110,7 @@
     totalOrders.textContent = list.length;
   }
 
-  // ❌ Delete
+  //  Delete
   function deleteOrder(index) {
     if (confirm("Delete this order?")) {
       orders.splice(index, 1);
@@ -119,13 +119,13 @@
     }
   }
 
-  // 📅 Filter
+  //  Filter
   function filterByDate() {
     const selectedDate = document.getElementById("dateFilter").value;
     displayOrders(selectedDate ? orders.filter(o => o.date === selectedDate) : orders);
   }
 
-  // 🧹 Clear All
+  //  Clear All
   function clearData() {
     if (confirm("Delete all saved orders?")) {
       orders = [];
@@ -133,8 +133,7 @@
       displayOrders(orders);
     }
   }
-
-  // 📥 CSV Download
+  // CSV Download
   function downloadCSV() {
     let csv = "AWB No.,Platform,Date\n";
     orders.forEach(o => csv += `${o.code},${o.platform},${o.date}\n`);
@@ -145,7 +144,7 @@
     link.click();
   }
 
-  // 📷 Start Scanner (Single Scan)
+  //  Start Scanner (Single Scan)
   function startScan() {
     html5QrCode = new Html5Qrcode("reader");
     html5QrCode.start(
@@ -157,7 +156,7 @@
     ).catch(err => console.error("Camera start failed:", err));
   }
 
-  // 🛑 Stop Scanner
+  //  Stop Scanner
   function stopScanner() {
     if (html5QrCode) {
       html5QrCode.stop().then(() => {
@@ -166,7 +165,7 @@
     }
   }
 
-  // 🚀 Initialize
+  //  Initialize
   displayOrders(orders);
   startScan();
 </script>
