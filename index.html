@@ -109,7 +109,6 @@
     });
     totalOrders.textContent = list.length;
   }
-
   //  Delete
   function deleteOrder(index) {
     if (confirm("Delete this order?")) {
@@ -118,13 +117,11 @@
       displayOrders(orders);
     }
   }
-
   //  Filter
   function filterByDate() {
     const selectedDate = document.getElementById("dateFilter").value;
     displayOrders(selectedDate ? orders.filter(o => o.date === selectedDate) : orders);
   }
-
   //  Clear All
   function clearData() {
     if (confirm("Delete all saved orders?")) {
@@ -143,7 +140,6 @@
     link.download = "orders.csv";
     link.click();
   }
-
   //  Start Scanner (Single Scan)
   function startScan() {
     html5QrCode = new Html5Qrcode("reader");
@@ -155,7 +151,6 @@
       }
     ).catch(err => console.error("Camera start failed:", err));
   }
-
   //  Stop Scanner
   function stopScanner() {
     if (html5QrCode) {
@@ -164,11 +159,9 @@
       }).catch(err => console.error("Stop failed:", err));
     }
   }
-
   //  Initialize
   displayOrders(orders);
   startScan();
 </script>
-
 </body>
 </html>
